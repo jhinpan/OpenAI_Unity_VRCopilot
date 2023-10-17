@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
@@ -11,7 +12,7 @@ namespace OpenAI
         [SerializeField] private InputField inputField;
         [SerializeField] private Button button;
         [SerializeField] private ScrollRect scroll;
-        
+
         [SerializeField] private RectTransform sent;
         [SerializeField] private RectTransform received;
 
@@ -19,7 +20,9 @@ namespace OpenAI
         private OpenAIApi openai = new OpenAIApi();
 
         private List<ChatMessage> messages = new List<ChatMessage>();
-        private string prompt = "Act as a ai assistant in a content creation project and reply to the questions. Don't break character. Don't ever mention that you are an AI model.";
+
+        private string prompt =
+            "Act as a ai assistant in a content creation project and reply to the questions. Don't break character. Don't ever mention that you are an AI model.";
 
         private void Start()
         {
@@ -43,10 +46,39 @@ namespace OpenAI
         {
             JObject output = new JObject();
 
-            List<string> materials = new List<string> { "hardwood", "plywood", /*...*/ };
-            List<string> styles = new List<string> { "minimalist", "minimalistic", /*...*/ };
-            List<string> supercategories = new List<string> { "Cabinet_Shelf_Desk", "Table", /*...*/ };
-    
+            // Define all entity lists
+            List<string> materials = new List<string>
+            {
+                "hardwood", "plywood", "timber", "wood", "wooden", "aluminum", "iron",
+                "metal", "metallic", "steel", "acrylic", "plastic", "polyethylene",
+                "PVC", "cloth", "fabric", "textile", "upholstery", "hide", "leather",
+                "nubuck", "skin", "clear", "crystal", "glass", "transparent", "granite",
+                "marble", "quartz", "stone", "bamboo", "cane", "rattan", "wicker",
+                "elastic", "latex", "neoprene", "rubber"
+            };
+
+            List<string> styles = new List<string>
+            {
+                "minimalist", "minimalistic", "Ming Qing", "Modern", "Japanese",
+                "Southeast Asia", "vintage", "retro", "Chinoiserie", "Industrial",
+                "Mediterranean", "New Chinese"
+            };
+
+            List<string> supercategories = new List<string>
+            {
+                "Cabinet_Shelf_Desk", "Table", "Sofa", "Chair", "Bed", "Lighting",
+                "Pier_Stool", "Stool"
+            };
+
+            List<string> categories = new List<string>
+            {
+                "Children Cabinet", "Nightstand", "Bookcase", "Jewelry Armoire",
+                "Wardrobe", "Coffee Table", "Corner/Side Table", "Sideboard",
+                "Side Cabinet", "Console Table", "Wine Cabinet", "TV Stand",
+                "Drawer Chest", "Corner cabinet"
+            };
+
+            // Check each entity list for matches in the message
             foreach (var material in materials)
             {
                 if (Regex.IsMatch(message, @"\b" + material + @"\b", RegexOptions.IgnoreCase))
@@ -55,7 +87,7 @@ namespace OpenAI
                     break;
                 }
             }
-    
+
             foreach (var style in styles)
             {
                 if (Regex.IsMatch(message, @"\b" + style + @"\b", RegexOptions.IgnoreCase))
@@ -64,7 +96,7 @@ namespace OpenAI
                     break;
                 }
             }
-    
+
             foreach (var supercategory in supercategories)
             {
                 if (Regex.IsMatch(message, @"\b" + supercategory + @"\b", RegexOptions.IgnoreCase))
@@ -73,15 +105,31 @@ namespace OpenAI
                     break;
                 }
             }
-    
-            if (Regex.IsMatch(message, "main.generate_at_point", RegexOptions.IgnoreCase))
+
+            foreach (var category in categories)
             {
-                output["intent"] = "main.generate_at_point";
+                if (Regex.IsMatch(message, @"\b" + category + @"\b", RegexOptions.IgnoreCase))
+                {
+                    output["category"] = category;
+                    break;
+                }
             }
-    
+
             return output;
-        }       
-        
+        }
+
+        List<JObject> savedEntities = new List<JObject>();
+
+        private void SaveParsedEntities(JObject entities)
+        {
+            savedEntities.Add(entities);
+            
+            foreach (JObject entity in savedEntities)
+            {
+                Debug.Log(entity.ToString());
+            }
+        }
+
         
         private async void SendReply()
         {
@@ -90,17 +138,17 @@ namespace OpenAI
                 Role = "user",
                 Content = inputField.text
             };
-            
+
             AppendMessage(newMessage);
 
-            if (messages.Count == 0) newMessage.Content = prompt + "\n" + inputField.text; 
-            
+            if (messages.Count == 0) newMessage.Content = prompt + "\n" + inputField.text;
+
             messages.Add(newMessage);
-            
+
             button.enabled = false;
             inputField.text = "";
             inputField.enabled = false;
-            
+
             // Complete the instruction
             var completionResponse = await openai.CreateChatCompletion(new CreateChatCompletionRequest()
             {
@@ -112,9 +160,14 @@ namespace OpenAI
             {
                 var message = completionResponse.Choices[0].Message;
                 message.Content = message.Content.Trim();
-                
+
                 messages.Add(message);
                 AppendMessage(message);
+                
+                JObject parsedEntities = ParseMessageToEntities(message.Content);
+
+                // Add this parsed data to a collection to be used later or save to file.
+                SaveParsedEntities(parsedEntities);
             }
             else
             {
