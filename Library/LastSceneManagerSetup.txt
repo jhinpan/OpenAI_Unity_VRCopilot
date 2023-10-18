@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Samples/OpenAI Unity/0.1.15/ChatGPT/ChatGPT Sample.unity
+- path: Assets/Samples/OpenAI Unity/0.1.15/Whisper/Whisper Sample.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

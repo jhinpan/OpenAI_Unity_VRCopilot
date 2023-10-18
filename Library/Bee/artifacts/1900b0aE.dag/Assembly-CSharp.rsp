@@ -350,12 +350,12 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
-"Assets/Samples/OpenAI Unity/0.1.15/ChatGPT/ChatGPT.cs"
 "Assets/Samples/OpenAI Unity/0.1.15/DallE/DallE.cs"
 "Assets/Samples/OpenAI Unity/0.1.15/Stream Response/StreamResponse.cs"
 "Assets/Samples/OpenAI Unity/0.1.15/Text Completion Chat/TextCompletionChat.cs"
 "Assets/Samples/OpenAI Unity/0.1.15/Whisper/SaveWav.cs"
 "Assets/Samples/OpenAI Unity/0.1.15/Whisper/Whisper.cs"
+"Assets/Scenes/ChatGPT/ChatGPT.cs"
 -langversion:9.0
 
 /deterministic
