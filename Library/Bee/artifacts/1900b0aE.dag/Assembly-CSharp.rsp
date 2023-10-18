@@ -353,9 +353,9 @@
 "Assets/Samples/OpenAI Unity/0.1.15/DallE/DallE.cs"
 "Assets/Samples/OpenAI Unity/0.1.15/Stream Response/StreamResponse.cs"
 "Assets/Samples/OpenAI Unity/0.1.15/Text Completion Chat/TextCompletionChat.cs"
-"Assets/Samples/OpenAI Unity/0.1.15/Whisper/SaveWav.cs"
-"Assets/Samples/OpenAI Unity/0.1.15/Whisper/Whisper.cs"
 "Assets/Scenes/ChatGPT/ChatGPT.cs"
+"Assets/Scenes/Whisper/SaveWav.cs"
+"Assets/Scenes/Whisper/Whisper.cs"
 -langversion:9.0
 
 /deterministic

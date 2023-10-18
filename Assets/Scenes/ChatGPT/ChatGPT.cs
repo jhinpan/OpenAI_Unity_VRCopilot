@@ -22,7 +22,16 @@ namespace OpenAI
         private List<ChatMessage> messages = new List<ChatMessage>();
 
         private string prompt =
-            "Act as a ai assistant in a content creation project and reply to the questions. Don't break character. Don't ever mention that you are an AI model.";
+            "Act as a ai assistant in a content creation project and reply to the questions. Don't break character. Don't ever mention that you are an AI model." +
+            "We're embarking on a complex and innovative furniture design project. Our aim is to encompass a multitude of entities and intents that can be customized to generate specific JSON outputs. " +
+            "We're employing a variety of materials, styles, and furniture categories to provide a comprehensive experience." +
+            "Entities and their Possible Values:" +
+            "1. Materials: hardwood, plywood, timber, wood, wooden, aluminum, iron, metal, metallic, steel, acrylic, plastic, polyethylene, PVC, cloth, fabric, textile, upholstery, hide, leather, nubuck, skin, clear, crystal, glass, transparent, granite, marble, quartz, stone, bamboo, cane, rattan, wicker, elastic, latex, neoprene, rubber." +
+            "2. Styles: minimalist, minimalistic, Ming Qing, Modern, Japanese, Southeast Asia, vintage, retro, Chinoiserie, Industrial, Mediterranean, New Chinese." +
+            "3. Supecategory: Cabinet_Shelf_Desk, Table, Sofa, Chair, Bed, Lighting, Pier_Stool, Stool." +
+            "4. Category: Children Cabinet, Nightstand, Bookcase, Jewelry Armoire, Wardrobe, Coffee Table, Corner/Side Table, Sideboard, Side Cabinet, Console Table, Wine Cabinet, TV Stand, Drawer Chest, Corner cabinet." +
+            "The scope of intents for this project is unlimited; it's confined only by the mentioned entities. Feel free to imagine, synthesize, and create unique furniture pieces, settings, or arrangements based on these entities. The only requirement is that the resulting conversation should be able to be translated into a JSON object that incorporates the mentioned entities." +
+            "For instance, a sentence like 'Let's create a minimalist sofa from scratch here,' should produce a JSON output like {“supercategory”: “sofa”, “style”: “minimalist”}. Go ahead, unleash your creativity and surprise us!";
 
         private void Start()
         {
@@ -152,7 +161,7 @@ namespace OpenAI
             // Complete the instruction
             var completionResponse = await openai.CreateChatCompletion(new CreateChatCompletionRequest()
             {
-                Model = "gpt-3.5-turbo-0613",
+                Model = "gpt-3.5-turbo-0301",
                 Messages = messages
             });
 
