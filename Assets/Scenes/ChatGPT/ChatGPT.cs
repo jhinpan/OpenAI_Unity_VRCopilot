@@ -36,6 +36,7 @@ namespace OpenAI
         private void Start()
         {
             button.onClick.AddListener(SendReply);
+            Whisper.OnMessageReady += ReceiveWhisperMessage;
         }
 
         private void AppendMessage(ChatMessage message)
@@ -50,6 +51,18 @@ namespace OpenAI
             scroll.content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
             scroll.verticalNormalizedPosition = 0;
         }
+        
+        private void ReceiveWhisperMessage(string message)
+        {
+            // Set the received message from Whisper to the inputField
+            inputField.text = message;
+    
+            SendReply();
+        }
+
+
+
+
 
         public JObject ParseMessageToEntities(string message)
         {
@@ -186,5 +199,12 @@ namespace OpenAI
             button.enabled = true;
             inputField.enabled = true;
         }
+        
+        
+        private void OnDestroy()
+        {
+            Whisper.OnMessageReady -= ReceiveWhisperMessage;
+        }
+
     }
 }

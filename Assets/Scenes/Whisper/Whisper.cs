@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace OpenAI
@@ -10,6 +11,9 @@ namespace OpenAI
         [SerializeField] private Text message;
         [SerializeField] private Dropdown dropdown;
         
+        
+        public static event Action<string> OnMessageReady;
+
         private readonly string fileName = "output.wav";
         private readonly int duration = 5;
         
@@ -73,6 +77,12 @@ namespace OpenAI
 
             progressBar.fillAmount = 0;
             message.text = res.Text;
+            
+            if (OnMessageReady != null) 
+            {
+                OnMessageReady(res.Text);
+            }
+            
             recordButton.enabled = true;
         }
 
