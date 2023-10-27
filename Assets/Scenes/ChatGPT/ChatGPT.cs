@@ -28,13 +28,13 @@ namespace OpenAI
         private List<ChatMessage> messages = new List<ChatMessage>();
 
         private string prompt = 
-        "Act as a design assistant in a content creation project. Respond to user queries by recognizing the following intents and mapping them to specific actions or outputs: " +
-        "1. main.delete: Recognize phrases like 'move this chair' or 'I don't want this table anymore' to delete specific furniture items. " +
-        "2. main.batch_delete: Phrases like 'I want everything gone except this dresser' should trigger a batch deletion while keeping a specified item. " +
-        "3. main.duplicate: If the user says 'Duplicate this item two times', produce additional copies of a given item. " +
-        "4. main.regenerate: Understand phrases such as 'Let's start over, I don't like this.' to regenerate the design. " +
-        "5. response.confirm: Recognize user preferences with phrases like 'How about the right one?' " +
-        "6. main.generate_at_point: Generate specific items when prompted by phrases such as 'Begin with generating a rustic bed of pine here'. " +
+        "Act as a design assistant in a content creation project. Respond to user queries by recognizing the following intents and mapping them to specific actions or outputs into the JSON file as well: " +
+        "Intent: main.delete: Recognize phrases like 'move this chair' or 'I don't want this table anymore' to delete specific furniture items. " +
+        "Intent: main.batch_delete: Phrases like 'I want everything gone except this dresser' should trigger a batch deletion while keeping a specified item. " +
+        "Intent: main.duplicate: If the user says 'Duplicate this item two times', produce additional copies of a given item. " +
+        "Intent: main.regenerate: Understand phrases such as 'Let's start over, I don't like this.' to regenerate the design. " +
+        "Intent: response.confirm: Recognize user preferences with phrases like 'How about the right one?' " +
+        "Intent: main.generate_at_point: Generate specific items when prompted by phrases such as 'Begin with generating a rustic bed of pine here'. " +
         "For intents that are undetected or conflict, provide an appropriate response. " +
         "We're embarking on a complex and innovative furniture design project. Our aim is to provide a comprehensive experience. " +
         "Entities and their Possible Values: " +
@@ -42,7 +42,7 @@ namespace OpenAI
         "2. Styles: minimalist, minimalistic, Ming Qing, Modern, Japanese, Southeast Asia, vintage, retro, Chinoiserie, Industrial, Mediterranean, New Chinese. " +
         "3. Supercategory: Cabinet_Shelf_Desk, Table, Sofa, Chair, Bed, Lighting, Pier_Stool, Stool. " +
         "4. Category: Children Cabinet, Nightstand, Bookcase, Jewelry Armoire, Wardrobe, Coffee Table, Corner/Side Table, Sideboard, Side Cabinet, Console Table, Wine Cabinet, TV Stand, Drawer Chest, Corner cabinet. " +
-        "For intents like 'main.generate_at_point' and 'main.regenerate', produce a specific JSON output, e.g., {'supercategory': 'sofa', 'style': 'minimalist'}. " +
+        "We want you to produce some specific JSON output for all those user's input to, e.g., {'intent': 'main.generate_at_point', 'supercategory': 'sofa', 'category': 'null', 'style': 'minimalist', 'material': 'null'}. Those entities or intents in this JSON output could be empty " +
         "Unleash your creativity and surprise us!";
 
 
@@ -87,6 +87,12 @@ namespace OpenAI
         {
             JObject output = new JObject();
 
+            List<string> intents = new List<string>
+            {
+                "main.delete", "main.batch_delete", "main.duplicate", "main.regenerate",
+                "response.confirm", "main.generate_at_point"
+            };
+            
             // Define all entity lists
             List<string> materials = new List<string>
             {
@@ -120,6 +126,15 @@ namespace OpenAI
             };
 
             // Check each entity list for matches in the message
+            foreach (var intent in intents)
+            {
+                if (Regex.IsMatch(message, @"\b" + intent + @"\b", RegexOptions.IgnoreCase))
+                {
+                    output["intent"] = intent;
+                    break;
+                }
+            }
+            
             foreach (var material in materials)
             {
                 if (Regex.IsMatch(message, @"\b" + material + @"\b", RegexOptions.IgnoreCase))
