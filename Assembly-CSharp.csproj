@@ -44,19 +44,38 @@
      <Compile Include="Assets\Samples\OpenAI Unity\0.1.15\Text Completion Chat\TextCompletionChat.cs" />
      <Compile Include="Assets\Samples\OpenAI Unity\0.1.15\Stream Response\StreamResponse.cs" />
      <Compile Include="Assets\Scenes\ChatGPT\ChatGPT.cs" />
+     <Compile Include="Assets\Scenes\ChatGPT\TextToSpeech.cs" />
      <Compile Include="Assets\Scenes\Whisper\SaveWav.cs" />
+     <Compile Include="Assets\Scenes\ChatGPT\ObjLoader.cs" />
      <Compile Include="Assets\Samples\OpenAI Unity\0.1.15\DallE\DallE.cs" />
      <Compile Include="Assets\Scenes\Whisper\Whisper.cs" />
      <Folder Include="Assets" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22" />
      <Folder Include="Assets\Samples\OpenAI Unity\0.1.15\Text Completion Chat" />
+     <None Include="Assets\Resources\model_info_VR.json" />
+     <None Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22\version.txt" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22\data-adam" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker" />
      <Folder Include="Assets\Samples" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22\bin\Linux_x86" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22\data-common\userdict" />
      <Folder Include="Assets\Samples\OpenAI Unity\0.1.15\DallE" />
      <Folder Include="Assets\Samples\OpenAI Unity\0.1.15\Stream Response" />
      <Folder Include="Assets\Scenes\Whisper" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22\bin\Windows_x64" />
      <Folder Include="Assets\Scenes\ChatGPT" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22\bin" />
+     <Folder Include="Assets\Resources" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22\bin\Linux_x64" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22\data-common" />
      <Folder Include="Assets\Samples\OpenAI Unity\0.1.15" />
+     <Folder Include="Assets\StreamingAssets" />
      <Folder Include="Assets\Samples\OpenAI Unity" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22\data-common\dict-bre" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam" />
      <Folder Include="Assets\Scenes" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux" />
+     <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22\data-adam\Q22" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.20f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
@@ -303,14 +322,29 @@
      <Reference Include="UnityEditor.UnityConnectModule">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.20f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-     <HintPath>C:\Users\jh1n\OpenAI_Unity\Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-     </Reference>
      <Reference Include="ReportGeneratorMerged">
      <HintPath>C:\Users\jh1n\OpenAI_Unity\Library\PackageCache\com.unity.testtools.codecoverage@1.2.2\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
      </Reference>
+     <Reference Include="AWSSDK.Polly">
+     <HintPath>C:\Users\jh1n\OpenAI_Unity\Assets\Plugins\AWSSDK.Polly.dll</HintPath>
+     </Reference>
+     <Reference Include="AndroidJNIWrapper">
+     <HintPath>C:\Users\jh1n\OpenAI_Unity\Assets\Plugins\ReadSpeaker\bin\Managed\AndroidJNIWrapper.dll</HintPath>
+     </Reference>
+     <Reference Include="Microsoft.Bcl.AsyncInterfaces">
+     <HintPath>C:\Users\jh1n\OpenAI_Unity\Assets\Plugins\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+     <HintPath>C:\Users\jh1n\OpenAI_Unity\Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="RSTTS">
+     <HintPath>C:\Users\jh1n\OpenAI_Unity\Assets\Plugins\ReadSpeaker\bin\Managed\RSTTS.dll</HintPath>
+     </Reference>
      <Reference Include="Newtonsoft.Json">
      <HintPath>C:\Users\jh1n\OpenAI_Unity\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
+     </Reference>
+     <Reference Include="AWSSDK.Core">
+     <HintPath>C:\Users\jh1n\OpenAI_Unity\Assets\Plugins\AWSSDK.Core.dll</HintPath>
      </Reference>
      <Reference Include="netstandard">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.20f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>

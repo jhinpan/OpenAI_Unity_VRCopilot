@@ -117,6 +117,13 @@
 -define:TIMELINE_FRAMEACCURATE
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/Plugins/AWSSDK.Core.dll"
+-r:"Assets/Plugins/AWSSDK.Polly.dll"
+-r:"Assets/Plugins/Microsoft.Bcl.AsyncInterfaces.dll"
+-r:"Assets/Plugins/ReadSpeaker/bin/Editor/EditorUtils.dll"
+-r:"Assets/Plugins/ReadSpeaker/bin/Editor/TTSEditor.dll"
+-r:"Assets/Plugins/ReadSpeaker/bin/Managed/AndroidJNIWrapper.dll"
+-r:"Assets/Plugins/ReadSpeaker/bin/Managed/RSTTS.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll"

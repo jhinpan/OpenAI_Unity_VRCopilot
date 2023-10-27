@@ -116,6 +116,11 @@
 -define:TEXTCORE_FONT_ENGINE_1_5_OR_NEWER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/Plugins/AWSSDK.Core.dll"
+-r:"Assets/Plugins/AWSSDK.Polly.dll"
+-r:"Assets/Plugins/Microsoft.Bcl.AsyncInterfaces.dll"
+-r:"Assets/Plugins/ReadSpeaker/bin/Managed/AndroidJNIWrapper.dll"
+-r:"Assets/Plugins/ReadSpeaker/bin/Managed/RSTTS.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.20f1/Editor/Data/Managed/UnityEngine/UnityEditor.DiagnosticsModule.dll"
@@ -354,6 +359,8 @@
 "Assets/Samples/OpenAI Unity/0.1.15/Stream Response/StreamResponse.cs"
 "Assets/Samples/OpenAI Unity/0.1.15/Text Completion Chat/TextCompletionChat.cs"
 "Assets/Scenes/ChatGPT/ChatGPT.cs"
+"Assets/Scenes/ChatGPT/ObjLoader.cs"
+"Assets/Scenes/ChatGPT/TextToSpeech.cs"
 "Assets/Scenes/Whisper/SaveWav.cs"
 "Assets/Scenes/Whisper/Whisper.cs"
 -langversion:9.0
