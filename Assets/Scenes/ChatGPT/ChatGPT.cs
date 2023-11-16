@@ -3,8 +3,10 @@ using UnityEngine.UI;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using GPTJsonData;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
+using Text = UnityEngine.UI.Text;
 
 namespace OpenAI
 {
@@ -21,7 +23,6 @@ namespace OpenAI
         private OpenAIApi openai = new OpenAIApi();
         List<JObject> savedEntities = new List<JObject>();
         private List<JObject> modelInfo;
-        private string modelBasePath = "D:/3D-FRONT/3D-FUTURE-model/";
 
         private TextToSpeech textToSpeech;
 
@@ -51,12 +52,6 @@ namespace OpenAI
             button.onClick.AddListener(() => { Debug.Log("Button clicked."); SendReply(); });
             Whisper.OnMessageReady += ReceiveWhisperMessage;
             
-            // // Load model_info_VR.json
-            // string jsonPath = "Assets/Resources/model_info_VR.json";
-            // string json = File.ReadAllText(jsonPath);
-            // JObject jsonObj = JObject.Parse(json);
-            // modelInfo = jsonObj["data"]?.ToObject<List<JObject>>().Take(100).ToList(); // Take only first 100
-
             textToSpeech = GetComponent<TextToSpeech>();
         }
 
@@ -184,38 +179,53 @@ namespace OpenAI
                 Debug.Log(entity.ToString());
             }
             
-            // foreach (var model in modelInfo)
-            // {
-            //     bool isMatch = true;
-            //     foreach (var entity in entities)
-            //     {
-            //         if (model[entity.Key] == null || model[entity.Key].ToString() != entity.Value.ToString())
-            //         {
-            //             isMatch = false;
-            //             break;
-            //         }
-            //     }
-            //     if (isMatch)
-            //     {
-            //         string modelID = model["model_id"].ToString();
-            //         string modelPath = Path.Combine(modelBasePath, modelID, "raw_model.obj");
-            //         Mesh loadedMesh = ObjLoader.Load(modelPath);
-            //         GameObject loadedModel = new GameObject();
-            //         loadedModel.AddComponent<MeshFilter>().mesh = loadedMesh;
-            //         loadedModel.AddComponent<MeshRenderer>();
-            //         
-            //         // Set the spawning position for the loadedModel
-            //         loadedModel.transform.position = new Vector3(0, 0, 0);
-            //     }
-            //     else
-            //     {
-            //         
-            //     }
-            // }
         }
 
+        private GPTOutput FormatOutputForGpt(JObject parsedEntities)
+        {
+            GPTOutput output = new GPTOutput();
 
+            // Map Intent
+            output.intent = new Intent();
+            if (parsedEntities["intent"] != null)
+            {
+                output.intent.name = parsedEntities["intent"].ToString();
+                output.intent.displayName = parsedEntities["intent"].ToString();
+            }
 
+            // Map Parameters
+            output.parameters = new Param();
+
+            if (parsedEntities["supercategory"] != null)
+            {
+                output.parameters.furniture_type = parsedEntities["supercategory"].ToString();
+            }
+
+            if (parsedEntities["category"] != null)
+            {
+                output.parameters.furniture_category = parsedEntities["category"].ToString();
+            }
+
+            if (parsedEntities["style"] != null)
+            {
+                output.parameters.furniture_style = parsedEntities["style"].ToString();
+            }
+
+            if (parsedEntities["material"] != null)
+            {
+                output.parameters.furniture_material = parsedEntities["material"].ToString();
+            }
+
+            // For now, setting the default values for the unspecified properties
+            output.parameters.point_confirm_choice = "";
+            output.parameters.duplicate_number = 1;
+
+            return output;
+        }
+
+        
+
+        
         private async void SendReply()
         {
             Debug.Log("Entered SendReply");
@@ -258,7 +268,10 @@ namespace OpenAI
                 AppendMessage(message);
                 Debug.Log("Received Choices from API");
                 JObject parsedEntities = ParseMessageToEntities(message.Content);
-
+                GPTOutput formattedOutput = FormatOutputForGpt(parsedEntities);
+                Debug.Log(JsonUtility.ToJson(formattedOutput));  // Print the JSON format of the GPTOutput object
+                
+                
                 textToSpeech.SpeakText(message.Content);
                 
                 // Add this parsed data to a collection to be used later or save to file.

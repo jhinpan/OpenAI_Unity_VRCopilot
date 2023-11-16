@@ -359,6 +359,7 @@
 "Assets/Samples/OpenAI Unity/0.1.15/Stream Response/StreamResponse.cs"
 "Assets/Samples/OpenAI Unity/0.1.15/Text Completion Chat/TextCompletionChat.cs"
 "Assets/Scenes/ChatGPT/ChatGPT.cs"
+"Assets/Scenes/ChatGPT/GPTJsonData.cs"
 "Assets/Scenes/ChatGPT/ObjLoader.cs"
 "Assets/Scenes/ChatGPT/TextToSpeech.cs"
 "Assets/Scenes/Whisper/SaveWav.cs"

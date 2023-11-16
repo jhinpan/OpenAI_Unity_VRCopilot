@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scenes\ChatGPT\ObjLoader.cs" />
      <Compile Include="Assets\Samples\OpenAI Unity\0.1.15\DallE\DallE.cs" />
      <Compile Include="Assets\Scenes\Whisper\Whisper.cs" />
+     <Compile Include="Assets\Scenes\ChatGPT\GPTJsonData.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\StreamingAssets\ReadSpeaker\WinLinux\adam\Q22" />
      <Folder Include="Assets\Samples\OpenAI Unity\0.1.15\Text Completion Chat" />
